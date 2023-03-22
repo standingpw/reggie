@@ -87,6 +87,37 @@ public class DishController {
 
         return R.success(dishDtoPage);
     }
+    /**
+     * 修改菜品状态
+     *
+     * @param ids
+     * @return
+     */
+    @PostMapping("/status/{ids}")
+    public R<DishDto> post(@RequestParam String ids) {
+        log.info("修改的ID:{}", ids);
+
+        String[] listids = ids.split(",");
+        DishDto[] dtos = new DishDto[listids.length];
+        for (int i = 0; i < listids.length; i++) {
+            log.info("ids"+listids[i]);
+//            DishDto dishDto = dishService.getByIdWithFlavor(Long.valueOf(ids));
+            DishDto dishDto = dishService.getByIdWithFlavor(Long.valueOf(listids[i]));
+
+            //修改菜品的状态
+            Integer status = dishDto.getStatus();
+            if(status==1){
+                status = 0;
+            }else {
+                status = 1;
+            }
+            dishDto.setStatus(status);
+            dishService.updateWithFlavor(dishDto);
+            dtos[i]=dishDto;
+        }
+
+        return R.success(dtos[0]);
+    }
 
     /**
      * 修改菜品
@@ -113,29 +144,23 @@ public class DishController {
         log.info("DishDto:{}", dishDto.toString());
         //操作两张表
         dishService.updateWithFlavor(dishDto);
-
-
         return R.success("修改菜品成功！");
     }
+    /**
+     * 根据ids删除菜品
+     *
+     * @param ids
+     * @return
+     */
+    @DeleteMapping()
+    public R<String> delete(@RequestParam String ids) {
+        log.info("删除的ID:{}", ids);
+        //查询两张表
+        DishDto dishDto = dishService.getByIdWithFlavor(Long.valueOf(ids));
+        dishService.deleteByIds(Long.valueOf(ids));
+        return R.success("删除菜品成功");
+    }
 
-//    /**
-//     * 根据条件来查询对应的菜品数据
-//     * @param dish
-//     * @return
-//     */
-//    @GetMapping("/list")
-//    public R<List<Dish>> list(Dish dish){
-//        //构造
-//        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
-//        queryWrapper.eq(dish.getCategoryId()!=null,Dish::getCategoryId,dish.getCategoryId());
-//        queryWrapper.eq(Dish::getStatus,1);//查询状态为1的菜品
-//
-//        //排序条件
-//        queryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
-//        List<Dish> list = dishService.list(queryWrapper);
-//
-//        return R.success(list);
-//    }
 
     /**
      * 根据条件来查询对应的菜品数据

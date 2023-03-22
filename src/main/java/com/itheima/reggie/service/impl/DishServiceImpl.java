@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements DishService {
     @Autowired
     private DishFlavorService dishFlavorService;
+    @Autowired
+    private DishService dishService;
 
     //新增菜品以及保存口味
     @Override
@@ -86,6 +88,21 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
         return null;
     }
+
+    @Override
+    public DishDto deleteByIds(Long id) {
+        //删除dish,首先要删除其对应的口味，要查找出对应的口味
+        DishDto flavor = dishService.getByIdWithFlavor(id);
+        List<DishFlavor> flavors = flavor.getFlavors();
+
+        for (DishFlavor dishFlavor : flavors) {
+            Long flavorId = dishFlavor.getId();
+            dishFlavorService.removeById(flavorId);
+        }
+        dishService.removeById(id);
+        return null;
+    }
+
 
 
 }

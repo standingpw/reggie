@@ -10,4 +10,6 @@ public interface DishService extends IService<Dish> {
     //根据id查询菜品和口味信息
     public DishDto getByIdWithFlavor(Long id);
     public DishDto updateWithFlavor(DishDto dishDto);
+
+    public DishDto deleteByIds(Long valueOf);
 }
