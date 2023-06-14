@@ -30,13 +30,13 @@
         </el-input>
         <div class="tableLab">
           <span class="span-btn delBut non" @click="deleteHandle('批量', null)">批量删除</span>
-          <span class="span-btn blueBug non" @click="statusHandle('1')">批量启售</span>
-          <span style="border:none;" class="span-btn delBut non" @click="statusHandle('0')">批量停售</span>
+          <span class="span-btn blueBug non" @click="statusHandle('1')">批量治疗中</span>
+          <span style="border:none;" class="span-btn delBut non" @click="statusHandle('0')">批量治疗结束</span>
           <el-button
             type="primary"
             @click="addFoodtype('add')"
           >
-            + 新建菜品
+            + 新建患者
           </el-button>
         </div>
       </div>
@@ -52,7 +52,7 @@
         ></el-table-column>
         <el-table-column
           prop="name"
-          label="菜品名称"
+          label="患者姓名"
         ></el-table-column>
         <el-table-column prop="image" label="图片" align="center">
           <template slot-scope="{ row }">
@@ -67,16 +67,16 @@
         </el-table-column>
         <el-table-column
           prop="categoryName"
-          label="菜品分类"
+          label="治疗方式"
         ></el-table-column>
-        <el-table-column label="售价">
+        <el-table-column label="费用">
           <template slot-scope="scope">
             <span style="margin-right: 10px;">￥{{ scope.row.price/100 }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="售卖状态">
+        <el-table-column label="治疗状态">
           <template slot-scope="scope">
-            <span style="margin-right: 10px;">{{ scope.row.status == '0' ? '停售' : '启售' }}</span>
+            <span style="margin-right: 10px;">{{ scope.row.status == '0' ? '治疗结束' : '治疗中' }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -104,7 +104,7 @@
               class="blueBug"
               @click="statusHandle(scope.row)"
             >
-              {{ scope.row.status == '0' ? '启售' : '停售' }}
+              {{ scope.row.status == '0' ? '治疗中' : '治疗结束' }}
             </el-button>
             <el-button
               type="text"
@@ -186,7 +186,7 @@
               window.parent.menuHandle({
                 id: '4',
                 url: '/backend/page/food/add.html',
-                name: '添加菜品'
+                name: '添加患者'
               },true)
             } else {
               window.parent.menuHandle({

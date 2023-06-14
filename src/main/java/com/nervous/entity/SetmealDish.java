@@ -26,7 +26,7 @@ public class SetmealDish implements Serializable {
     private Long dishId;
 
 
-    //菜品名称 （冗余字段）
+    //患者姓名 （冗余字段）
     private String name;
 
     //菜品原价

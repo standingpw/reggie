@@ -28,11 +28,11 @@ public class Setmeal implements Serializable {
     private String name;
 
 
-    //套餐价格
+    //套餐费用
     private BigDecimal price;
 
 
-    //状态 0:停用 1:启用
+    //状态 0:治疗结束 1:治疗中
     private Integer status;
 
 

@@ -184,17 +184,17 @@
             </el-form-item>
           </div>
           <div>
-            <el-form-item label="套餐价格:" prop="price">
+            <el-form-item label="套餐费用:" prop="price">
               <el-input v-model="ruleForm.price" placeholder="请设置套餐价格" />
             </el-form-item>
           </div>
           <div>
-            <el-form-item label="套餐菜品:" class="setmealFood">
+            <el-form-item label="套餐患者:" class="setmealFood">
               <el-form-item>
                 <div class="addDish">
-                  <span v-if="dishTable.length == 0" class="addBut" @click="openAddDish"> + 添加菜品</span>
+                  <span v-if="dishTable.length == 0" class="addBut" @click="openAddDish"> + 添加患者</span>
                   <div v-if="dishTable.length != 0" class="content">
-                    <div class="addBut" style="margin-bottom: 20px" @click="openAddDish">+ 添加菜品</div>
+                    <div class="addBut" style="margin-bottom: 20px" @click="openAddDish">+ 添加患者</div>
                     <div class="table">
                       <el-table :data="dishTable" style="width: 100%">
                         <el-table-column prop="name" label="名称" width="180" align="center"></el-table-column>
@@ -261,7 +261,7 @@
         </el-form>
       </div>
       <el-dialog
-        title="添加菜品"
+        title="添加患者"
         class="addDishList"
         :visible.sync="dialogVisible"
         width="60%"
@@ -313,7 +313,7 @@
                     >
                       <div class="item">
                         <span style="flex: 3;text-align: left">{{ item.dishName }}</span>
-                        <span>{{ item.status == 0 ? '停售' : '在售' }}</span>
+                        <span>{{ item.status == 0 ? '治疗结束' : '在售' }}</span>
                         <span>{{ Number(item.price)/100 }}</span>
                       </div>
                     </el-checkbox>
@@ -498,7 +498,7 @@
             this.checkList = [...value]
           },
 
-          // 添加菜品
+          // 添加患者
           openAddDish() {
             this.seachKey = ''
             this.dialogVisible = true
@@ -631,7 +631,7 @@
               {
                 id: '5',
                 url: '/backend/page/combo/list.html',
-                name: '套餐管理',
+                name: '治疗套餐',
               },
               false
             )

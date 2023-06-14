@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 套餐管理
+ * 治疗套餐
  */
 @Slf4j
 @RequestMapping("/setmeal")
@@ -39,7 +39,7 @@ public class SetmealController {
      */
     @PostMapping
     public R<String> save(@RequestBody SetmealDto setmealDto) {
-        log.info("SetmealDto:{}", setmealDto.toString());
+//        log.info("SetmealDto:{}", setmealDto.toString());
         setmealService.saveWithDish(setmealDto);
         return R.success("新增套餐成功！");
     }
